@@ -1,32 +1,40 @@
 
 
-import threading, time
+import threading, time, queue
 from django.shortcuts import render
 from django.http import HttpResponse
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from django.utils import timezone
+from . import views
 
-
+lock = threading.Lock()
+save_time = float(30)
+            
 def start_thread():
     while True:
         print("시작")
         save()
-        time.sleep(60)
+        time.sleep(save_time)
 
 def save():
     print('불러오는중')
     for item in stock_list():
         t = threading.Thread(target=save_thread,args=(item[0],item[1],))
         t.start()
-    
 
 def start():
     t = threading.Thread(target=start_thread)
+    #h = threading.Thread(target=resent_thread)
+    #h.daemon = True
     t.daemon = True 
     t.start()
+    #h.start()
+    for e in stock_list():
+        views.array[e[1]] = []
+    
+def save_thread(nametemp,codetemp):
 
-def save_thread(name,codetemp):
     try:
         urlcode = "https://finance.naver.com/item/main.nhn?code="+codetemp
         html = urlopen(urlcode)
@@ -34,15 +42,15 @@ def save_thread(name,codetemp):
         result1 = bsObject.findAll("p")
         result2 = result1[7].find("span").text
         result3 = ""
-        print(name+","+result2)
         for temp in result2:
             if temp>='0' and temp<='9':
                 result3 = result3 + temp
         result = int(result3)
+        lock.acquire()
+        views.array_add(price=result,code=codetemp)
+        lock.release()
     except:
         print('오류발생! #'+name)
-    #print(result)
-    #views.db_save(code=codetemp,price=result)
 
 def stock_list():
     result = [
@@ -77,7 +85,6 @@ def stock_list():
         ['미래에셋대우','006800'],
         ['NH투자증권','005940'],
         ['현대해상','001450'],
-        ['KB금융','115560'],
     ]
     '''
     return result
