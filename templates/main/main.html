@@ -44,23 +44,92 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     
-    {% include "header/header.html" %}
+    
     <body class="sb-nav-fixed">
-        
-        <p>제목{{name}}</p>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_content">
+        {% include "header/header.html" %}
+
+        <div id="layoutSidenav" class="h-100">
+            <div id="layoutSidenav_nav" style="height: 100vh;">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background-color: rgb(137, 83, 42);">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Layouts
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Pages
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Authentication
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="login.html">Login</a>
+                                            <a class="nav-link" href="register.html">Register</a>
+                                            <a class="nav-link" href="password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer" style="background-color: rgb(102, 65, 31);">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content" style="height: 100vh;">
                 <main class="h-100 v-100">
-                    <div class="container-fluid h-100">
-                        <h1 class="mt-4">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">{{name}}
-                                </font>
+                    <h1 class="pt-4 pl-4 pb-0 mb-0" style="height: 5%;">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">{{name}}
                             </font>
-                        </h1>
+                        </font>
+                    </h1>
+                    <div class="container-fluid" style="height: 90%;">
                         <div class="row h-100">
                             <div class="col-md-9 p-0">
-                                <div class="chart-box container-fluid m-2 mt-4 mb-4" style="height: 60%;">
+                                <div class="chart-box container-fluid mt-4" style="height: 70%;">
                                     <div id="chart_div" style="width: 100%; height: 100%;"></div>
                                 </div>
                                 <div class="container-fluid p-2" style="height: 30%;">
@@ -104,10 +173,10 @@
 
                                         {% for stock in stocklist %}
                                         
-                                        <li class="stock-list">
+                                        <li class="stock-list mb-0">
                                             <div class="container-fluid p-0">
                                                 <div class="row pl-4">
-                                                    <button type="button" class="btn btn-primary">
+                                                    <button type="button" class="btn v-100">
                                                     <div>{{stock.name}}</div>
                                                     <div>시가: {{stock.price}}</div>
                                                     <div>상승률: 10%</div>

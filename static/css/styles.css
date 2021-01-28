@@ -10681,3 +10681,21 @@ body {
 .content-part {
   border: solid 2px white;
 }
+#layoutSidenav_content {
+  background: url("/img/grass-background.jpg");
+}
+.chart-box {
+  border: 2px solid rgba(204, 142, 97, 0.8);
+  border-radius: 10px;
+}
+.stock-information {
+  background-color: rgb(237, 184, 147);
+  border: 10px solid white;
+}
+.stock-lists {
+  border: 2px solid rgb(237, 184, 147);
+  border-radius: 5px;
+}
+.stock-list {
+  border: 1px solid rgb(237, 184, 147);
+}
